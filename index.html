@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>For Salman 💗</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&family=Nunito:wght@600&display=swap">
+<style>
+:root{
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px);
+  padding-bottom:env(safe-area-inset-bottom,0px);
+  --bg:#ffe3ec; --ink:#7a1f45; --soft:#b5547c; --heart:#ff5c8a; --heart-dark:#e03a6d; --card:#fff7fa;
+  color-scheme:light;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#2a0f1c; --ink:#ffd6e5; --soft:#e59ab8; --heart:#ff6f9a; --heart-dark:#e8497b; --card:#3a1626;
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#2a0f1c; --ink:#ffd6e5; --soft:#e59ab8; --heart:#ff6f9a; --heart-dark:#e8497b; --card:#3a1626;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+html,body{height:100%;margin:0}
+body{
+  background:var(--bg); color:var(--ink);
+  font-family:'Nunito',system-ui,sans-serif;
+  display:flex; align-items:center; justify-content:center;
+  overflow:hidden; text-align:center;
+}
+.stage{position:relative; width:100%; max-width:420px; padding:24px; min-height:380px}
+.hint{font-size:1.05rem; color:var(--soft); margin:0 0 18px}
+button.heart{
+  all:unset; cursor:pointer; display:inline-block; line-height:0;
+  animation:beat 1.4s ease-in-out infinite;
+  border-radius:50%;
+}
+button.heart:focus-visible{outline:3px solid var(--ink); outline-offset:8px}
+button.heart svg{width:170px; height:170px; filter:drop-shadow(0 8px 0 var(--heart-dark))}
+@keyframes beat{0%,100%{transform:scale(1)}15%{transform:scale(1.1)}30%{transform:scale(1)}45%{transform:scale(1.07)}}
+.card{
+  display:none; background:var(--card); border-radius:28px; padding:36px 24px;
+  box-shadow:0 10px 0 var(--heart);
+}
+.opened .card{display:block; animation:pop .6s cubic-bezier(.2,1.4,.4,1)}
+.opened .intro{display:none}
+@keyframes pop{from{transform:scale(.3) rotate(-6deg); opacity:0}to{transform:none; opacity:1}}
+.name{font-family:'Dancing Script',cursive,serif; font-size:2.2rem; margin:0 0 6px; color:var(--soft)}
+.msg{font-family:'Dancing Script',cursive,serif; font-size:3.2rem; line-height:1.1; margin:0; font-weight:700}
+.sign{margin:22px 0 0; font-size:1.5rem}
+.bit{position:fixed; bottom:-40px; pointer-events:none; animation:rise linear forwards; user-select:none}
+@keyframes rise{to{transform:translateY(-110vh) rotate(25deg); opacity:0}}
+@media (prefers-reduced-motion: reduce){
+  button.heart{animation:none}
+  .opened .card{animation:none}
+  .bit{display:none}
+}
+</style>
+</head>
+<body>
+<main class="stage" id="stage">
+  <div class="intro">
+    <p class="hint">Salman, this is for you. Tap the heart.</p>
+    <button class="heart" id="open" aria-label="Open your message">
+      <svg viewBox="0 0 100 90" aria-hidden="true"><path fill="var(--heart)" d="M50 88C18 62 2 46 2 27 2 13 13 3 26 3c9 0 18 5 24 14C56 8 65 3 74 3c13 0 24 10 24 24 0 19-16 35-48 61z"/></svg>
+    </button>
+  </div>
+  <section class="card" aria-live="polite">
+    <p class="name">Salman,</p>
+    <p class="msg">I love you, dear</p>
+    <p class="sign">💗</p>
+  </section>
+</main>
+<script>
+(function(){
+  var stage=document.getElementById('stage');
+  var btn=document.getElementById('open');
+  var shapes=['💗','💖','💕','🌸','✨'];
+  function burst(){
+    for(var i=0;i<26;i++){
+      var s=document.createElement('span');
+      s.className='bit';
+      s.textContent=shapes[i%shapes.length];
+      s.style.left=(Math.random()*100)+'vw';
+      s.style.fontSize=(18+Math.random()*26)+'px';
+      s.style.animationDuration=(3+Math.random()*3)+'s';
+      s.style.animationDelay=(Math.random()*0.8)+'s';
+      document.body.appendChild(s);
+      setTimeout((function(el){return function(){el.remove()}})(s),7500);
+    }
+  }
+  btn.addEventListener('click',function(){
+    stage.classList.add('opened');
+    burst();
+  });
+})();
+</script>
+</body>
+</html>
